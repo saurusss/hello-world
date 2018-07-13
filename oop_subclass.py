@@ -29,7 +29,7 @@ class Student(SchoolMember):
 
     def tell(self):
         SchoolMember.tell(self)
-        print('\tMarks: "{:d}"'.format(self.marks))
+        print('Marks: "{:d}"'.format(self.marks))
 
 t1 = Teacher('Mrs. Shrividya', 40, 130000)
 t2 = Teacher('Mr. Sony', 30, 230000)
