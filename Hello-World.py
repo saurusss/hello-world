@@ -1,2 +1,2 @@
-# Note that print is a statment
+# Note that print(is a statment
 print("hello world")
