@@ -50,7 +50,7 @@ class MyWindow(QWidget):
         #df = web.DataReader(code, "yahoo")
         ticker = code + '.KS'
        
-        df = web.get_data_yahoo(ticker, '2018-01-01')
+        df = web.get_data_yahoo(ticker, '2017-01-01')
         df['MA20'] = df['Adj Close'].rolling(window=20).mean()
         df['MA60'] = df['Adj Close'].rolling(window=60).mean()
 
