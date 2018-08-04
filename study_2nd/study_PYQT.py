@@ -124,8 +124,8 @@ class MyWindow(QMainWindow):
         textLabel.move(20, 20)
 
         self.label = QLabel("", self)
-        self.label.move(80, 20)
-        self.label.resize(150, 30)
+        self.label.move(90, 20)
+        self.label.resize(160, 30)
 
         btn1 = QPushButton("Click", self)
         btn1.move(20, 60)
