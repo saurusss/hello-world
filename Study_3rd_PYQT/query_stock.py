@@ -21,42 +21,29 @@ class MyWindow(QWidget):
         self.setGeometry(600, 200, 1200, 600)
         self.setWindowTitle("PyChart Viewer v0.1")
         self.setWindowIcon(QIcon('stock.png'))
-
+    # 변수 정의
         # 결과 확인 
-        statusLabel = QLabel(self)
-        statusLabel.setText("시작")
-        
+        self.statusLabel = QLabel(self)
+        self.statusLabel.setText("시작")
+        # 차트 그림 버튼
         self.pushButton = QPushButton("차트그리기")
-
-        #종목코드입력
-        self.lineEdit = QLineEdit()
-        self.pushButton.clicked.connect(self.pushButtonClicked)
-        
+        self.pushButton.clicked.connect(self.pushButtonClicked)        
+        # 종목코드입력
+        self.lineEdit1 = QLineEdit()
+        #self.pushButton.clicked.connect(self.pushButtonClicked)
         # 시장 선택
-        groupBox = QGroupBox("시장구분", self)
+        groupBox1 = QGroupBox("시장구분", self)
         self.radio1 = QRadioButton("KOSPI", self)
         self.radio1.setChecked(True)
         self.radio1.clicked.connect(self.radioButtonClicked)
-
         self.radio2 = QRadioButton("KOSDAQ", self)
         self.radio2.clicked.connect(self.radioButtonClicked)
-
-
-        # 시작 일자 선택
-        # 시장 선택
-        groupBox = QGroupBox("조회기간", self)
-        self.radio1 = QRadioButton("KOSPI", self)
-        self.radio1.setChecked(True)
-        self.radio1.clicked.connect(self.radioButtonClicked)
-
-        self.radio2 = QRadioButton("KOSDAQ", self)
-        self.radio2.clicked.connect(self.radioButtonClicked)
-
-
-        # 종료 일자 선택
         
-        
-
+        # 기간 선택
+        self.startDate = QLineEdit()
+        self.endDate = QLineEdit()
+        print(self.startDate, self.endDate)
+        groupBox2 = QGroupBox("조회기간", self)
 
         # Left Layout
         self.fig = plt.Figure()
@@ -66,20 +53,25 @@ class MyWindow(QWidget):
         leftLayout.addWidget(self.canvas)
 
         # Right Layout
-        
-
-        rightInnerLayout = QVBoxLayout()
-        rightInnerLayout.addWidget(self.radio1)
-        rightInnerLayout.addWidget(self.radio2)
-        groupBox.setLayout(rightInnerLayout)
-
+            # 시장 선택 
+        rightInner1 = QVBoxLayout()
+        rightInner1.addWidget(self.radio1)
+        rightInner1.addWidget(self.radio2)
+        groupBox1.setLayout(rightInner1)
+            # 기간 입력
+        rightInner2 = QVBoxLayout()
+        rightInner2.addWidget(self.startDate)
+        rightInner2.addWidget(self.endDate)
+        groupBox2.setLayout(rightInner2)
+            # 우측 박스 구성
         rightLayout = QVBoxLayout()
         rightLayout.addWidget(self.pushButton)
-        rightLayout.addWidget(self.lineEdit)
-        rightLayout.addWidget(groupBox)
-        rightLayout.addWidget(statusLabel)
+        rightLayout.addWidget(self.lineEdit1)
+        rightLayout.addWidget(groupBox1)
+        rightLayout.addWidget(groupBox2)
+        rightLayout.addWidget(self.statusLabel)
         rightLayout.addStretch(1)
-
+        #전체구성
         layout = QHBoxLayout()
         layout.addLayout(leftLayout)
         layout.addLayout(rightLayout)
@@ -89,11 +81,16 @@ class MyWindow(QWidget):
         self.setLayout(layout)
 
     def pushButtonClicked(self):
-        code = self.lineEdit.text()
+        code = self.lineEdit1.text()
         #df = web.DataReader(code, "yahoo")
         ticker = code + '.KS'
-       
-        df = web.get_data_yahoo(ticker, '2017-01-01')
+        a = self.startDate
+        b = self.endDate
+        print(a,b)
+        # sDate = datetime.datetime.strptime(self.startDate, "%Y-%m-%d").date()
+        # eDate = datetime.datetime.strptime(self.endDate, "%Y-%m-%d").date()
+        
+        df = web.get_data_yahoo(ticker, a)
         df['MA20'] = df['Adj Close'].rolling(window=20).mean()
         df['MA60'] = df['Adj Close'].rolling(window=60).mean()
 
