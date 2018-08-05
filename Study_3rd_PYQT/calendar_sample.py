@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import * 
 from PyQt5.QtGui import * 
 from PyQt5.QtCore import Qt, QDate 
+import sys 
 
 class MyMain(QWidget): 
     def __init__(self): 
@@ -19,7 +20,7 @@ class MyMain(QWidget):
             self.setLayout(vbox) 
 
 if __name__ == "__main__": 
-    import sys 
+
     app = QApplication(sys.argv) 
     myWindow = MyMain() 
     myWindow.show() 

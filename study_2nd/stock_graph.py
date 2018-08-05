@@ -22,7 +22,7 @@ def query_gs(code):
 def print_menu():
     print()
     menu1 = input("종목코드(6자리): ")
-    menu2 = input("KS or KQ) : ")
+    menu2 = input("KS or KQ : ")
     menu3 = input("start date : ")
     menu = [menu1, menu2, menu3]
     return menu

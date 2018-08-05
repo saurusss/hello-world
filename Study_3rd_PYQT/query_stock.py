@@ -8,6 +8,7 @@ import fix_yahoo_finance as yf
 yf.pdr_override()
 import pandas as pd
 pd.core.common.is_list_like = pd.api.types.is_list_like
+import datetime
 
 from pandas import Series, DataFrame
 
@@ -21,10 +22,43 @@ class MyWindow(QWidget):
         self.setWindowTitle("PyChart Viewer v0.1")
         self.setWindowIcon(QIcon('stock.png'))
 
-        self.lineEdit = QLineEdit()
+        # 결과 확인 
+        statusLabel = QLabel(self)
+        statusLabel.setText("시작")
+        
         self.pushButton = QPushButton("차트그리기")
-        self.pushButton.clicked.connect(self.pushButtonClicked)
 
+        #종목코드입력
+        self.lineEdit = QLineEdit()
+        self.pushButton.clicked.connect(self.pushButtonClicked)
+        
+        # 시장 선택
+        groupBox = QGroupBox("시장구분", self)
+        self.radio1 = QRadioButton("KOSPI", self)
+        self.radio1.setChecked(True)
+        self.radio1.clicked.connect(self.radioButtonClicked)
+
+        self.radio2 = QRadioButton("KOSDAQ", self)
+        self.radio2.clicked.connect(self.radioButtonClicked)
+
+
+        # 시작 일자 선택
+        # 시장 선택
+        groupBox = QGroupBox("조회기간", self)
+        self.radio1 = QRadioButton("KOSPI", self)
+        self.radio1.setChecked(True)
+        self.radio1.clicked.connect(self.radioButtonClicked)
+
+        self.radio2 = QRadioButton("KOSDAQ", self)
+        self.radio2.clicked.connect(self.radioButtonClicked)
+
+
+        # 종료 일자 선택
+        
+        
+
+
+        # Left Layout
         self.fig = plt.Figure()
         self.canvas = FigureCanvas(self.fig)
 
@@ -32,9 +66,18 @@ class MyWindow(QWidget):
         leftLayout.addWidget(self.canvas)
 
         # Right Layout
+        
+
+        rightInnerLayout = QVBoxLayout()
+        rightInnerLayout.addWidget(self.radio1)
+        rightInnerLayout.addWidget(self.radio2)
+        groupBox.setLayout(rightInnerLayout)
+
         rightLayout = QVBoxLayout()
-        rightLayout.addWidget(self.lineEdit)
         rightLayout.addWidget(self.pushButton)
+        rightLayout.addWidget(self.lineEdit)
+        rightLayout.addWidget(groupBox)
+        rightLayout.addWidget(statusLabel)
         rightLayout.addStretch(1)
 
         layout = QHBoxLayout()
@@ -62,6 +105,15 @@ class MyWindow(QWidget):
         ax.grid()
 
         self.canvas.draw()
+
+    def radioButtonClicked(self):
+        msg = ""
+        if self.radio1.isChecked():
+            msg = "KS"
+        else:
+            msg = "KQ"
+        self.statusLabel.setText(msg)
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
