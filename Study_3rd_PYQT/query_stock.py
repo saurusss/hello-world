@@ -29,7 +29,7 @@ class MyWindow(QWidget):
         self.pushButton = QPushButton("차트그리기")
         self.pushButton.clicked.connect(self.pushButtonClicked)        
         # 종목코드입력
-        self.lineEdit1 = QLineEdit()
+        self.lineEdit1 = QLineEdit("", self)
         #self.pushButton.clicked.connect(self.pushButtonClicked)
         # 시장 선택
         groupBox1 = QGroupBox("시장구분", self)
@@ -40,9 +40,8 @@ class MyWindow(QWidget):
         self.radio2.clicked.connect(self.radioButtonClicked)
         
         # 기간 선택
-        self.startDate = QLineEdit()
-        self.endDate = QLineEdit()
-        print(self.startDate, self.endDate)
+        self.startDate = QLineEdit("", self)
+        self.endDate = QLineEdit(str(datetime.date.today()), self)
         groupBox2 = QGroupBox("조회기간", self)
 
         # Left Layout
@@ -81,16 +80,16 @@ class MyWindow(QWidget):
         self.setLayout(layout)
 
     def pushButtonClicked(self):
-        code = self.lineEdit1.text()
-        #df = web.DataReader(code, "yahoo")
-        ticker = code + '.KS'
-        a = self.startDate
-        b = self.endDate
-        print(a,b)
-        # sDate = datetime.datetime.strptime(self.startDate, "%Y-%m-%d").date()
-        # eDate = datetime.datetime.strptime(self.endDate, "%Y-%m-%d").date()
+        # code = self.lineEdit1.text()
+        if self.radio1.isChecked():
+            ticker = self.lineEdit1.text() + '.KS'
+        else:
+            ticker = self.lineEdit1.text() + '.KQ'
         
-        df = web.get_data_yahoo(ticker, a)
+        sDate = datetime.datetime.strptime(self.startDate.text(), "%Y-%m-%d").date()
+        eDate = datetime.datetime.strptime(self.endDate.text(), "%Y-%m-%d").date()
+        
+        df = web.get_data_yahoo(ticker, sDate, eDate)
         df['MA20'] = df['Adj Close'].rolling(window=20).mean()
         df['MA60'] = df['Adj Close'].rolling(window=60).mean()
 
