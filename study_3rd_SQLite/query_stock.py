@@ -19,7 +19,7 @@ class MyWindow(QWidget):
     def setupUI(self):
         self.setGeometry(600, 200, 1200, 600)
         self.setWindowTitle("PyChart Viewer v0.1")
-        self.setWindowIcon(QIcon('icon.png'))
+        self.setWindowIcon(QIcon('stock.png'))
 
         self.lineEdit = QLineEdit()
         self.pushButton = QPushButton("차트그리기")
