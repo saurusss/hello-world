@@ -12,7 +12,7 @@ import datetime
 
 from pandas import Series, DataFrame
 
-# stock code load
+# stock code load  https://wikidocs.net/5236       
 sc = pd.read_csv('c:\\TEMP\\stock.csv', index_col=0)
 
 
