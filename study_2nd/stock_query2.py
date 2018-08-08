@@ -12,6 +12,10 @@ import datetime
 
 from pandas import Series, DataFrame
 
+# stock code load
+sc = pd.read_csv('c:\\TEMP\\stock.csv', index_col=0)
+
+
 class MyWindow(QWidget):
     def __init__(self):
         super().__init__()
@@ -24,13 +28,18 @@ class MyWindow(QWidget):
     # 변수 정의
         # 결과 확인 
         self.statusLabel = QLabel(self)
-        self.statusLabel.setText("시작")
+        self.statusLabel.setText("종목코드 입력")
         # 차트 그림 버튼
         self.pushButton = QPushButton("차트그리기")
         self.pushButton.clicked.connect(self.pushButtonClicked)        
         # 종목코드입력
         self.lineEdit1 = QLineEdit("", self)
         #self.pushButton.clicked.connect(self.pushButtonClicked)
+        self.lineEdit1.returnPressed.connect(self.lineEditReturnPressed)
+        # 자주사용되는 QLineEdit signal
+        # textChanged( )   QLineEdit 객체에서 텍스트가 변경될 때 발생
+        # returnPressed( ) QLineEdit 객체를 통해 사용자가 엔터키를 눌렀을 때
+        self.labelStockname = QLabel("미선택", self) #  코드 입력된 종목 이름 표시
         # 시장 선택
         groupBox1 = QGroupBox("시장구분", self)
         self.radio1 = QRadioButton("KOSPI", self)
@@ -66,6 +75,7 @@ class MyWindow(QWidget):
         rightLayout = QVBoxLayout()
         rightLayout.addWidget(self.pushButton)
         rightLayout.addWidget(self.lineEdit1)
+        rightLayout.addWidget(self.labelStockname)
         rightLayout.addWidget(groupBox1)
         rightLayout.addWidget(groupBox2)
         rightLayout.addWidget(self.statusLabel)
@@ -109,6 +119,10 @@ class MyWindow(QWidget):
         else:
             msg = "KQ"
         self.statusLabel.setText(msg)
+
+    def lineEditReturnPressed(self):
+        sname = sc['A' + self.lineEdit1.text()]
+        self.labelStockname.setText(sname)
 
 
 if __name__ == "__main__":
