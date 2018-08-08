@@ -6,9 +6,13 @@ stockcode=[{"stock_name": "\ub3d9\ud654\uc57d\ud488", "stock_code": "A000020"}, 
 
 # sc = stock_df.set_index('stock_code')
 
+# stock_code를 인덱스로
+# sc = (pd.DataFrame(stockcode)).set_index('stock_code')
+# print(sc)
+# sc.to_csv('c:\\TEMP\\stock.csv', mode='w')
 
-sc = (pd.DataFrame(stockcode)).set_index('stock_code')
+# stock_name을 인덱스로
+sc = (pd.DataFrame(stockcode)).set_index('stock_name')
 print(sc)
+sc.to_csv('c:\\TEMP\\stockn.csv', mode='w')
 
-
-sc.to_csv('c:\\TEMP\\stock.csv', mode='w')

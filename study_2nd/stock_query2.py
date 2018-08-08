@@ -27,8 +27,8 @@ class MyWindow(QWidget):
         self.setWindowIcon(QIcon('stock.png'))
     # 변수 정의
         # 결과 확인 
-        self.statusLabel = QLabel(self)
-        self.statusLabel.setText("종목코드 입력")
+        self.labelMkt = QLabel(self)
+        self.labelMkt.setText("종목코드 입력")
         # 차트 그림 버튼
         self.pushButton = QPushButton("차트그리기")
         self.pushButton.clicked.connect(self.pushButtonClicked)        
@@ -47,6 +47,8 @@ class MyWindow(QWidget):
         self.radio1.clicked.connect(self.radioButtonClicked)
         self.radio2 = QRadioButton("KOSDAQ", self)
         self.radio2.clicked.connect(self.radioButtonClicked)
+        # self.radio1.textChanged(self.radiotextChanged)
+        # self.radio2.textChanged(self.radiotextChanged)
         
         # 기간 선택
         self.startDate = QLineEdit("", self)
@@ -70,7 +72,7 @@ class MyWindow(QWidget):
         rightInner1 = QVBoxLayout()
         rightInner1.addWidget(self.radio1)
         rightInner1.addWidget(self.radio2)
-        rightInner1.addWidget(self.statusLabel)
+        rightInner1.addWidget(self.labelMkt)
         groupBox1.setLayout(rightInner1)
             # 기간 입력
         rightInner2 = QVBoxLayout()
@@ -83,7 +85,7 @@ class MyWindow(QWidget):
         rightLayout.addWidget(self.pushButton)
         rightLayout.addWidget(self.lineEdit1)
         rightLayout.addWidget(self.labelStockname)
-        # rightLayout.addWidget(self.statusLabel)
+        # rightLayout.addWidget(self.labelMkt)
         rightLayout.addWidget(groupBox1)
         rightLayout.addWidget(groupBox2)
         rightLayout.addStretch(1)
@@ -106,18 +108,23 @@ class MyWindow(QWidget):
         sDate = datetime.datetime.strptime(self.startDate.text(), "%Y-%m-%d").date()
         eDate = datetime.datetime.strptime(self.endDate.text(), "%Y-%m-%d").date()
         
-        df = web.get_data_yahoo(ticker, sDate, eDate)
-        df['MA20'] = df['Adj Close'].rolling(window=20).mean()
-        df['MA60'] = df['Adj Close'].rolling(window=60).mean()
+        try:
+            df = web.get_data_yahoo(ticker, sDate, eDate)
 
-        ax = self.fig.add_subplot(111)
-        ax.plot(df.index, df['Adj Close'], label='Adj Close')
-        ax.plot(df.index, df['MA20'], label='MA20')
-        ax.plot(df.index, df['MA60'], label='MA60')
-        ax.legend(loc='upper right')
-        ax.grid()
+            df['MA20'] = df['Adj Close'].rolling(window=20).mean()
+            df['MA60'] = df['Adj Close'].rolling(window=60).mean()
 
-        self.canvas.draw()
+            ax = self.fig.add_subplot(111)
+            ax.plot(df.index, df['Adj Close'], label='Adj Close')
+            ax.plot(df.index, df['MA20'], label='MA20')
+            ax.plot(df.index, df['MA60'], label='MA60')
+            ax.legend(loc='upper right')
+            ax.grid()
+
+            self.canvas.draw()
+        except:
+            
+            self.labelMkt.setText("시장구분을 점검해주세요")
 
     def radioButtonClicked(self):
         msg = ""
@@ -125,7 +132,7 @@ class MyWindow(QWidget):
             msg = "KS"
         else:
             msg = "KQ"
-        self.statusLabel.setText(msg)
+        self.labelMkt.setText(msg)
 
     def lineEditChanged(self):
         # sname = self.sc.loc['A' + self.lineEdit1.text()]
@@ -133,12 +140,20 @@ class MyWindow(QWidget):
         self.labelStockname.setText(self.lineEdit1.text())
 
     def lineEditReturnPressed(self):
-        scode = 'A'+ self.lineEdit1.text()
+        self.sinput =  self.lineEdit1.text()
+        self.scode =  'A' + self.sinput 
         try:
-        # sname = ""
-        # sname = self.sc.ix[scode].stock_name
-        # print(sname)
-            self.labelStockname.setText(self.sc.ix[scode].stock_name)
+            sc = pd.read_csv('c:\\TEMP\\stock.csv', index_col=0)
+            # scode = 'A'+ self.lineEdit1.text()
+            self.labelStockname.setText(sc.ix[self.scode].stock_name)
+        except  KeyError as err:
+            sn = pd.read_csv('c:\\TEMP\\stockn.csv', index_col=0) 
+            # sname = self.lineEdit1.text()
+            # self.labelStockname.setText(self.sn.ix[sname])
+            s_result = (sn.ix[self.sinput].stock_code)
+            self.lineEdit1.setText(s_result[1:])
+            self.labelStockname.setText(self.sinput)
+            # lineEditReturnPressed()            
         except:
             self.labelStockname.setText("해당 종목 없음")
             
@@ -152,7 +167,7 @@ class MyWindow(QWidget):
             # raise ValueError("Incorrect data format, should be YYYY-MM-DD")
             self.labelDateStatus.setText("Incorrect data format, should be YYYY-MM-DD")   
 
-    sc = pd.read_csv('c:\\TEMP\\stock.csv', index_col=0)
+    # sc = pd.read_csv('c:\\TEMP\\stock.csv', index_col=0)
 
 
 if __name__ == "__main__":
