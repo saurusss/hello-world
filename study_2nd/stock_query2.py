@@ -13,7 +13,7 @@ import datetime
 from pandas import Series, DataFrame
 
 # stock code load  https://wikidocs.net/5236       
-sc = pd.read_csv('c:\\TEMP\\stock.csv', index_col=0)
+# sc = pd.read_csv('c:\\TEMP\\stock.csv', index_col=0)
 
 
 class MyWindow(QWidget):
@@ -34,8 +34,8 @@ class MyWindow(QWidget):
         self.pushButton.clicked.connect(self.pushButtonClicked)        
         # 종목코드입력
         self.lineEdit1 = QLineEdit("", self)
-        #self.pushButton.clicked.connect(self.pushButtonClicked)
         self.lineEdit1.returnPressed.connect(self.lineEditReturnPressed)
+        self.lineEdit1.textChanged.connect(self.lineEditChanged)
         # 자주사용되는 QLineEdit signal
         # textChanged( )   QLineEdit 객체에서 텍스트가 변경될 때 발생
         # returnPressed( ) QLineEdit 객체를 통해 사용자가 엔터키를 눌렀을 때
@@ -51,7 +51,12 @@ class MyWindow(QWidget):
         # 기간 선택
         self.startDate = QLineEdit("", self)
         self.endDate = QLineEdit(str(datetime.date.today()), self)
+        self.labelDateStatus = QLabel("날짜입력", self)
+        self.startDate.returnPressed.connect(self.dateReturnPressed)
+        # self.startDate.textChanged.connect(self.dateEditChanged)
+
         groupBox2 = QGroupBox("조회기간", self)
+
 
         # Left Layout
         self.fig = plt.Figure()
@@ -65,20 +70,22 @@ class MyWindow(QWidget):
         rightInner1 = QVBoxLayout()
         rightInner1.addWidget(self.radio1)
         rightInner1.addWidget(self.radio2)
+        rightInner1.addWidget(self.statusLabel)
         groupBox1.setLayout(rightInner1)
             # 기간 입력
         rightInner2 = QVBoxLayout()
         rightInner2.addWidget(self.startDate)
         rightInner2.addWidget(self.endDate)
+        rightInner2.addWidget(self.labelDateStatus)
         groupBox2.setLayout(rightInner2)
-            # 우측 박스 구성
+            # 우측 전체 박스 구성
         rightLayout = QVBoxLayout()
         rightLayout.addWidget(self.pushButton)
         rightLayout.addWidget(self.lineEdit1)
         rightLayout.addWidget(self.labelStockname)
+        # rightLayout.addWidget(self.statusLabel)
         rightLayout.addWidget(groupBox1)
         rightLayout.addWidget(groupBox2)
-        rightLayout.addWidget(self.statusLabel)
         rightLayout.addStretch(1)
         #전체구성
         layout = QHBoxLayout()
@@ -120,9 +127,32 @@ class MyWindow(QWidget):
             msg = "KQ"
         self.statusLabel.setText(msg)
 
+    def lineEditChanged(self):
+        # sname = self.sc.loc['A' + self.lineEdit1.text()]
+        # print(sname)
+        self.labelStockname.setText(self.lineEdit1.text())
+
     def lineEditReturnPressed(self):
-        sname = sc['A' + self.lineEdit1.text()]
-        self.labelStockname.setText(sname)
+        scode = 'A'+ self.lineEdit1.text()
+        try:
+        # sname = ""
+        # sname = self.sc.ix[scode].stock_name
+        # print(sname)
+            self.labelStockname.setText(self.sc.ix[scode].stock_name)
+        except:
+            self.labelStockname.setText("해당 종목 없음")
+            
+    def dateReturnPressed(self):
+        try:
+            datetime.datetime.strptime(self.startDate.text(), '%Y-%m-%d')
+            datetime.datetime.strptime(self.endDate.text(), '%Y-%m-%d')
+            self.labelDateStatus.setText(self.startDate.text() + "~" + self.endDate.text())
+            
+        except ValueError:
+            # raise ValueError("Incorrect data format, should be YYYY-MM-DD")
+            self.labelDateStatus.setText("Incorrect data format, should be YYYY-MM-DD")   
+
+    sc = pd.read_csv('c:\\TEMP\\stock.csv', index_col=0)
 
 
 if __name__ == "__main__":
