@@ -14,8 +14,6 @@ from pandas import Series, DataFrame
 
 # stock code load  https://wikidocs.net/5236       
 # sc = pd.read_csv('c:\\TEMP\\stock.csv', index_col=0)
-
-
     
 class MyWindow(QWidget):
     def __init__(self):
@@ -39,9 +37,9 @@ class MyWindow(QWidget):
         self.pushButtonReset.clicked.connect(self.pushButtonResetClicked)        
         
         # 종목코드입력
-        self.lineEdit1 = QLineEdit("", self)
-        self.lineEdit1.returnPressed.connect(self.lineEditReturnPressed)
-        self.lineEdit1.textChanged.connect(self.lineEditChanged)
+        self.lineEditStock = QLineEdit("", self)
+        self.lineEditStock.returnPressed.connect(self.lineEditReturnPressed)
+        self.lineEditStock.textChanged.connect(self.lineEditChanged)
         # 자주사용되는 QLineEdit signal
         # textChanged( )   QLineEdit 객체에서 텍스트가 변경될 때 발생
         # returnPressed( ) QLineEdit 객체를 통해 사용자가 엔터키를 눌렀을 때
@@ -90,7 +88,7 @@ class MyWindow(QWidget):
             # 우측 전체 박스 구성
         rightLayout = QVBoxLayout()
         rightLayout.addWidget(self.pushButtonDraw)
-        rightLayout.addWidget(self.lineEdit1)
+        rightLayout.addWidget(self.lineEditStock)
         rightLayout.addWidget(self.labelStockname)
         rightLayout.addWidget(groupBox1)
         rightLayout.addWidget(groupBox2)
@@ -114,12 +112,12 @@ class MyWindow(QWidget):
         
 
     def pushButtonDrawClicked(self):
-        # code = self.lineEdit1.text()
+        # code = self.lineEditStock.text()
 
         if self.radio1.isChecked():
-            ticker = self.lineEdit1.text() + '.KS'
+            ticker = self.lineEditStock.text() + '.KS'
         else:
-            ticker = self.lineEdit1.text() + '.KQ'
+            ticker = self.lineEditStock.text() + '.KQ'
         
         sDate = str(datetime.datetime.strptime(self.startDate.text(), "%Y-%m-%d").date())
         eDate = str(datetime.datetime.strptime(self.endDate.text(), "%Y-%m-%d").date())
@@ -151,12 +149,12 @@ class MyWindow(QWidget):
         self.labelMkt.setText(msg)
 
     def lineEditChanged(self):
-        # sname = self.sc.loc['A' + self.lineEdit1.text()]
+        # sname = self.sc.loc['A' + self.lineEditStock.text()]
         # print(sname)
-        self.labelStockname.setText(self.lineEdit1.text())
+        self.labelStockname.setText(self.lineEditStock.text())
 
     def lineEditReturnPressed(self):
-        self.sinput =  self.lineEdit1.text()
+        self.sinput =  self.lineEditStock.text()
         self.scode =  'A' + self.sinput 
         try:
             sc = pd.read_csv('c:\\TEMP\\stock.csv', index_col=0)
@@ -165,7 +163,7 @@ class MyWindow(QWidget):
             try:
                 sn = pd.read_csv('c:\\TEMP\\stockn.csv', index_col=0) 
                 s_result = (sn.ix[self.sinput].stock_code)
-                self.lineEdit1.setText(s_result[1:])
+                self.lineEditStock.setText(s_result[1:])
                 self.labelStockname.setText(self.sinput)
             except:
                 self.labelStockname.setText("해당 종목 없음!")
