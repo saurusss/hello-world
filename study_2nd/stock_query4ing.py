@@ -25,7 +25,7 @@ class MyWindow(QWidget):
         self.setWindowTitle("PyChart Viewer v0.1")
         self.setWindowIcon(QIcon('stock.png'))
         # 변수 정의
-        # 결과 확인 
+        # 종목 입력 결과  
         self.labelMkt = QLabel(self)
         self.labelMkt.setText("종목코드 입력")
         # 차트 그리기 버튼
@@ -105,12 +105,15 @@ class MyWindow(QWidget):
 
     def pushButtonResetClicked(self):
         pass
+        # self.fig = plt.Figure()
+        # self.ax = self.fig.add_subplot(111)
+        # self.canvas.draw()
         # ax = self.fig.add_subplot(111) -오류 발생
         # self.canvas.draw()
         # self.ax = plt.Figure()
         # self.canvas = FigureCanvas(self.fig)
+        # self.canvas.draw()
         
-
     def pushButtonDrawClicked(self):
         # code = self.lineEditStock.text()
 
@@ -128,12 +131,12 @@ class MyWindow(QWidget):
             df['MA20'] = df['Adj Close'].rolling(window=20).mean()
             df['MA60'] = df['Adj Close'].rolling(window=60).mean()
 
-            ax = self.fig.add_subplot(111)
-            ax.plot(df.index, df['Adj Close'], label='Adj Close')
-            ax.plot(df.index, df['MA20'], label='MA20')
-            ax.plot(df.index, df['MA60'], label='MA60')
-            ax.legend(loc='upper right')
-            ax.grid()
+            self.ax = self.fig.add_subplot(111)
+            self.ax.plot(df.index, df['Adj Close'], label='Adj Close')
+            self.ax.plot(df.index, df['MA20'], label='MA20')
+            self.ax.plot(df.index, df['MA60'], label='MA60')
+            self.ax.legend(loc='upper right')
+            self.ax.grid()
 
             self.canvas.draw()
 
