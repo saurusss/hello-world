@@ -16,6 +16,7 @@ from pandas import Series, DataFrame
 # sc = pd.read_csv('c:\\TEMP\\stock.csv', index_col=0)
 
 
+    
 class MyWindow(QWidget):
     def __init__(self):
         super().__init__()
@@ -29,9 +30,14 @@ class MyWindow(QWidget):
         # 결과 확인 
         self.labelMkt = QLabel(self)
         self.labelMkt.setText("종목코드 입력")
-        # 차트 그림 버튼
-        self.pushButton = QPushButton("차트그리기")
-        self.pushButton.clicked.connect(self.pushButtonClicked)        
+        # 차트 그리기 버튼
+        self.pushButtonDraw = QPushButton("차트그리기")
+        self.pushButtonDraw.clicked.connect(self.pushButtonDrawClicked) 
+
+        # 프로그램 리셋 버튼
+        # self.pushButtonReset = QPushButton("프로그램 종료")
+        # self.pushButtonReset.clicked.connect(self.pushButtonResetClicked)        
+        
         # 종목코드입력
         self.lineEdit1 = QLineEdit("", self)
         self.lineEdit1.returnPressed.connect(self.lineEditReturnPressed)
@@ -82,12 +88,12 @@ class MyWindow(QWidget):
         groupBox2.setLayout(rightInner2)
             # 우측 전체 박스 구성
         rightLayout = QVBoxLayout()
-        rightLayout.addWidget(self.pushButton)
+        rightLayout.addWidget(self.pushButtonDraw)
         rightLayout.addWidget(self.lineEdit1)
         rightLayout.addWidget(self.labelStockname)
-        # rightLayout.addWidget(self.labelMkt)
         rightLayout.addWidget(groupBox1)
         rightLayout.addWidget(groupBox2)
+        # rightLayout.addWidget(self.pushButtonReset)
         rightLayout.addStretch(1)
         #전체구성
         layout = QHBoxLayout()
@@ -98,8 +104,14 @@ class MyWindow(QWidget):
 
         self.setLayout(layout)
 
-    def pushButtonClicked(self):
+    # def pushButtonResetClicked(self):
+    #     self.fig = plt.Figure()
+    #     self.canvas = FigureCanvas(self.fig)
+        
+
+    def pushButtonDrawClicked(self):
         # code = self.lineEdit1.text()
+
         if self.radio1.isChecked():
             ticker = self.lineEdit1.text() + '.KS'
         else:
@@ -146,13 +158,19 @@ class MyWindow(QWidget):
         try:
             sc = pd.read_csv('c:\\TEMP\\stock.csv', index_col=0)
             self.labelStockname.setText(sc.ix[self.scode].stock_name)
-        except  KeyError as err:
-            sn = pd.read_csv('c:\\TEMP\\stockn.csv', index_col=0) 
-            s_result = (sn.ix[self.sinput].stock_code)
-            self.lineEdit1.setText(s_result[1:])
-            self.labelStockname.setText(self.sinput)
+        except  KeyError as err1:
+            print(err1)
+
+            try:
+                sn = pd.read_csv('c:\\TEMP\\stockn.csv', index_col=0) 
+                s_result = (sn.ix[self.sinput].stock_code)
+                self.lineEdit1.setText(s_result[1:])
+                self.labelStockname.setText(self.sinput)
+            except:
+                self.labelStockname.setText("해당 종목 없음!")
+            
         except:
-            self.labelStockname.setText("해당 종목 없음")
+            self.labelStockname.setText("입력 오류!!!")
             
     def dateReturnPressed(self):
         try:
