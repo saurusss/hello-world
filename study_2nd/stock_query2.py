@@ -51,7 +51,7 @@ class MyWindow(QWidget):
         # self.radio2.textChanged(self.radiotextChanged)
         
         # 기간 선택
-        self.startDate = QLineEdit("", self)
+        self.startDate = QLineEdit(str(datetime.date.today().year-2)+"-01-01", self)
         self.endDate = QLineEdit(str(datetime.date.today()), self)
         self.labelDateStatus = QLabel("날짜입력", self)
         self.startDate.returnPressed.connect(self.dateReturnPressed)
@@ -122,6 +122,7 @@ class MyWindow(QWidget):
             ax.grid()
 
             self.canvas.draw()
+
         except:
             
             self.labelMkt.setText("시장구분을 점검해주세요")
@@ -144,16 +145,12 @@ class MyWindow(QWidget):
         self.scode =  'A' + self.sinput 
         try:
             sc = pd.read_csv('c:\\TEMP\\stock.csv', index_col=0)
-            # scode = 'A'+ self.lineEdit1.text()
             self.labelStockname.setText(sc.ix[self.scode].stock_name)
         except  KeyError as err:
             sn = pd.read_csv('c:\\TEMP\\stockn.csv', index_col=0) 
-            # sname = self.lineEdit1.text()
-            # self.labelStockname.setText(self.sn.ix[sname])
             s_result = (sn.ix[self.sinput].stock_code)
             self.lineEdit1.setText(s_result[1:])
             self.labelStockname.setText(self.sinput)
-            # lineEditReturnPressed()            
         except:
             self.labelStockname.setText("해당 종목 없음")
             
@@ -166,9 +163,6 @@ class MyWindow(QWidget):
         except ValueError:
             # raise ValueError("Incorrect data format, should be YYYY-MM-DD")
             self.labelDateStatus.setText("Incorrect data format, should be YYYY-MM-DD")   
-
-    # sc = pd.read_csv('c:\\TEMP\\stock.csv', index_col=0)
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
