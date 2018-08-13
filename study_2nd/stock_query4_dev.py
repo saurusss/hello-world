@@ -95,19 +95,21 @@ class MyWindow(QWidget):
         rightLayout.addWidget(self.pushButtonReset)
         rightLayout.addStretch(1)
         #전체구성
-        layout = QHBoxLayout()
-        layout.addLayout(leftLayout)
-        layout.addLayout(rightLayout)
-        layout.setStretchFactor(leftLayout, 1)
-        layout.setStretchFactor(rightLayout, 0)
+        self.layout = QHBoxLayout()
+        self.layout.addLayout(leftLayout)
+        self.layout.addLayout(rightLayout)
+        self.layout.setStretchFactor(leftLayout, 1)
+        self.layout.setStretchFactor(rightLayout, 0)
 
-        self.setLayout(layout)
+        self.setLayout(self.layout)
 
     def pushButtonResetClicked(self):
-        pass
-        # self.fig = plt.Figure()
-        # self.ax = self.fig.add_subplot(111)
-        # self.canvas.draw()
+        # pass
+        del self.fig
+        self.fig = plt.Figure()
+        self.ax = self.fig.add_subplot(111)
+        self.canvas.draw()
+        self.setLayout(self.layout)
         # ax = self.fig.add_subplot(111) -오류 발생
         # self.canvas.draw()
         # self.ax = plt.Figure()
