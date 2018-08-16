@@ -25,8 +25,8 @@ for page in range(1, mpNum+1):
   srlists=source.find_all("tr")
   isCheckNone = None
    
-  # if((page % 1) == 0):
-  #   time.sleep(1.50)
+  if((page % 1) == 0):
+    time.sleep(1.50)
  
   for i in range(1,len(srlists)-1):
    if(srlists[i].span != isCheckNone):
