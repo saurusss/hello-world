@@ -14,4 +14,6 @@ for i in range(5):
         distX = abs(loc.longitude[i]-loc.longitude[j])
         dist = math.sqrt(distX**2 + distY**2)
         print(loc.loc[j])
+        # print(loc.loc[j]."D"+mgmtNum[i])
+
         # loc.loc[j].'D'+ mgmtNum[i] = dist
