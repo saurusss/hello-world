@@ -1,0 +1,359 @@
+C:\Users\Administrator\Documents\Github\hello-world\Study_9th_Scrapping>scrapy startproject rt_crawler
+New Scrapy project 'rt_crawler', using template directory 'c:\\program files\\python36-32\\lib\\site-packages\\scrapy\\templates\\project', created in:
+    C:\Users\Administrator\Documents\Github\hello-world\Study_9th_Scrapping\rt_crawler
+
+You can start your first spider with:
+    cd rt_crawler
+    scrapy genspider example example.com
+
+C:\Users\Administrator\Documents\Github\hello-world\Study_9th_Scrapping>scrapy shell "https://www.rottentomatoes.com/top/bestofrt/?year=2018"
+2018-08-21 17:20:50 [scrapy.utils.log] INFO: Scrapy 1.5.1 started (bot: scrapybot)
+2018-08-21 17:20:50 [scrapy.utils.log] INFO: Versions: lxml 4.2.3.0, libxml2 2.9.5, cssselect 1.0.3, parsel 1.5.0, w3lib 1.19.0, Twisted 18.7.0, Python 3.6.6 (v3.6.6:4cf1f54eb7, Jun 27 2018, 02:47:15) [MSC v.1900 32 bit
+(Intel)], pyOpenSSL 18.0.0 (OpenSSL 1.1.0i  14 Aug 2018), cryptography 2.3.1, Platform Windows-7-6.1.7601-SP1
+2018-08-21 17:20:50 [scrapy.crawler] INFO: Overridden settings: {'DUPEFILTER_CLASS': 'scrapy.dupefilters.BaseDupeFilter', 'LOGSTATS_INTERVAL': 0}
+2018-08-21 17:20:50 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole']
+2018-08-21 17:20:52 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2018-08-21 17:20:52 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2018-08-21 17:20:52 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2018-08-21 17:20:52 [scrapy.extensions.telnet] DEBUG: Telnet console listening on 127.0.0.1:6023
+2018-08-21 17:20:52 [scrapy.core.engine] INFO: Spider opened
+2018-08-21 17:20:52 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.rottentomatoes.com/top/bestofrt/?year=2018> (referer: None)
+[s] Available Scrapy objects:
+[s]   scrapy     scrapy module (contains scrapy.Request, scrapy.Selector, etc)
+[s]   crawler    <scrapy.crawler.Crawler object at 0x02992E50>
+[s]   item       {}
+[s]   request    <GET https://www.rottentomatoes.com/top/bestofrt/?year=2018>
+[s]   response   <200 https://www.rottentomatoes.com/top/bestofrt/?year=2018>
+[s]   settings   <scrapy.settings.Settings object at 0x0360FC70>
+[s]   spider     <DefaultSpider 'default' at 0x37f8e70>
+[s] Useful shortcuts:
+[s]   fetch(url[, redirect=True]) Fetch URL and update local objects (by default, redirects are followed)
+[s]   fetch(req)                  Fetch a scrapy.Request and update local objects
+[s]   shelp()           Shell help (print this help)
+[s]   view(response)    View response in a browser
+In [1]: reponse.xpath("//*[@id="top_movies_main"]/div/table/tbody/tr[1]/td[3]/a")
+  File "<ipython-input-1-3f67d3ac8fa7>", line 1
+    reponse.xpath("//*[@id="top_movies_main"]/div/table/tbody/tr[1]/td[3]/a")
+                                          ^
+SyntaxError: invalid syntax
+
+
+In [2]: response.xpath("//*[@id="top_movies_main"]/div/table/tbody/tr[1]/td[3]/a")
+  File "<ipython-input-2-2b6fac6ddc74>", line 1
+    response.xpath("//*[@id="top_movies_main"]/div/table/tbody/tr[1]/td[3]/a")
+                                           ^
+SyntaxError: invalid syntax
+
+
+In [3]: responst.xpath('//*[@id="top_movies_main"]/div/table/tbody/tr[1]/td[3]/a')
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-3-b0bdd00b1b7a> in <module>()
+----> 1 responst.xpath('//*[@id="top_movies_main"]/div/table/tbody/tr[1]/td[3]/a')
+
+NameError: name 'responst' is not defined
+
+In [4]: response.xpath('//*[@id="top_movies_main"]/div/table/tbody/tr[1]/td[3]/a')
+Out[4]: []
+
+In [5]: response.xpath('//*[@id="top_movies_main"]/div/table/tbody/tr[1]/td[3]')
+Out[5]: []
+
+In [6]: response.xpath('//*[@id="top_movies_main"]/div/table/tbody/tr[1]')
+Out[6]: []
+
+In [7]: response.xpath('//*[@id="top_movies_main"]/div/table/tbody')
+Out[7]: []
+
+In [8]: response.xpath('//*[@id="top_movies_main"]/div/table)
+  File "<ipython-input-8-8160860bf3ac>", line 1
+    response.xpath('//*[@id="top_movies_main"]/div/table)
+                                                         ^
+SyntaxError: EOL while scanning string literal
+
+
+In [9]: response.xpath('//*[@id="top_movies_main"]/div/table')
+Out[9]: [<Selector xpath='//*[@id="top_movies_main"]/div/table' data='<table class="table">\n
+ '>]
+
+In [10]: response.xpath('//*[@id="top_movies_main"]/div/table')
+Out[10]: [<Selector xpath='//*[@id="top_movies_main"]/div/table' data='<table class="table">\n
+  '>]
+
+In [11]: //*[@id="top_movies_main"]/div/table/tr[1]/td[3]/a')
+  File "<ipython-input-11-a45a5b68c882>", line 1
+    (/*[@id="top_movies_main"]/div/table/tr[1]/td[3]/a'))
+     ^
+SyntaxError: invalid syntax
+
+
+In [12]: reponse.xpath=('//*[@id="top_movies_main"]/div/table/tr[1]/td[3]/a')')
+  File "<ipython-input-12-2c895dff58c8>", line 1
+    reponse.xpath=('//*[@id="top_movies_main"]/div/table/tr[1]/td[3]/a')')
+                                                                          ^
+SyntaxError: EOL while scanning string literal
+
+
+In [13]: reponse.xpath=('//*[@id="top_movies_main"]/div/table/tr[1]/td[3]/a')
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-13-b3cd2f1d3d22> in <module>()
+----> 1 reponse.xpath=('//*[@id="top_movies_main"]/div/table/tr[1]/td[3]/a')
+
+NameError: name 'reponse' is not defined
+
+In [14]: response.xpath=('//*[@id="top_movies_main"]/div/table/tr[1]/td[3]/a')
+
+In [15]: response.xpath=('//*[@id="top_movies_main"]/div/table')
+
+In [16]: response.xpath('//*[@id="top_movies_main"]/div/table)
+  File "<ipython-input-16-8160860bf3ac>", line 1
+    response.xpath('//*[@id="top_movies_main"]/div/table)
+                                                         ^
+SyntaxError: EOL while scanning string literal
+
+
+In [17]: response.xpath('//*[@id="top_movies_main"]/div/table')
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-17-0644c7291aaa> in <module>()
+----> 1 response.xpath('//*[@id="top_movies_main"]/div/table')
+
+TypeError: 'str' object is not callable
+
+In [18]: response.xpath('//*[@id="top_movies_main"]/div/table/tbody/tr[1]/td[3]/a')
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-18-5f52a8ab8089> in <module>()
+----> 1 response.xpath('//*[@id="top_movies_main"]/div/table/tbody/tr[1]/td[3]/a')
+
+TypeError: 'str' object is not callable
+
+In [19]: exit
+
+
+C:\Users\Administrator\Documents\Github\hello-world\Study_9th_Scrapping>scrapy shell "https://www.rottentomatoes.com/top/bestofrt/?year=2018"
+2018-08-21 17:35:56 [scrapy.utils.log] INFO: Scrapy 1.5.1 started (bot: scrapybot)
+2018-08-21 17:35:56 [scrapy.utils.log] INFO: Versions: lxml 4.2.3.0, libxml2 2.9.5, cssselect 1.0.3, parsel 1.5.0, w3lib 1.19.0, Twisted 18.7.0, Python 3.6.6 (v3.6.6:4cf1f54eb7, Jun 27 2018, 02:47:15) [MSC v.1900 32 bit
+(Intel)], pyOpenSSL 18.0.0 (OpenSSL 1.1.0i  14 Aug 2018), cryptography 2.3.1, Platform Windows-7-6.1.7601-SP1
+2018-08-21 17:35:56 [scrapy.crawler] INFO: Overridden settings: {'DUPEFILTER_CLASS': 'scrapy.dupefilters.BaseDupeFilter', 'LOGSTATS_INTERVAL': 0}
+2018-08-21 17:35:56 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole']
+2018-08-21 17:35:57 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2018-08-21 17:35:57 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2018-08-21 17:35:57 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2018-08-21 17:35:57 [scrapy.extensions.telnet] DEBUG: Telnet console listening on 127.0.0.1:6023
+2018-08-21 17:35:57 [scrapy.core.engine] INFO: Spider opened
+2018-08-21 17:35:58 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.rottentomatoes.com/top/bestofrt/?year=2018> (referer: None)
+[s] Available Scrapy objects:
+[s]   scrapy     scrapy module (contains scrapy.Request, scrapy.Selector, etc)
+[s]   crawler    <scrapy.crawler.Crawler object at 0x02992E50>
+[s]   item       {}
+[s]   request    <GET https://www.rottentomatoes.com/top/bestofrt/?year=2018>
+[s]   response   <200 https://www.rottentomatoes.com/top/bestofrt/?year=2018>
+[s]   settings   <scrapy.settings.Settings object at 0x0380EC50>
+[s]   spider     <DefaultSpider 'default' at 0x39f9e70>
+[s] Useful shortcuts:
+[s]   fetch(url[, redirect=True]) Fetch URL and update local objects (by default, redirects are followed)
+[s]   fetch(req)                  Fetch a scrapy.Request and update local objects
+[s]   shelp()           Shell help (print this help)
+[s]   view(response)    View response in a browser
+In [1]: response.xpath('//*[@id="top_movies_main"]/div/table/tbody/tr[1]/td[3]/a')
+Out[1]: []
+
+In [2]: response.xpath('//*[@id="top_movies_main"]/div/table/tbody/tr[1]/td[3]')
+Out[2]: []
+
+In [3]: response.xpath('//*[@id="top_movies_main"]/div/table/tbody/tr[1]')
+Out[3]: []
+
+In [4]: response.xpath('//*[@id="top_movies_main"]/div/table/tbody')
+Out[4]: []
+
+In [5]: response.xpath('//*[@id="top_movies_main"]/div/table')
+Out[5]: [<Selector xpath='//*[@id="top_movies_main"]/div/table' data='<table class="table">\n
+ '>]
+
+In [6]: response.xpath('//*[@id="top_movies_main"]/div/table/tr[1]')
+Out[6]: [<Selector xpath='//*[@id="top_movies_main"]/div/table/tr[1]' data='<tr>\n    <td class="bold">1.</td>\n    <t'>]
+
+In [7]: response.xpath('//*[@id="top_movies_main"]/div/table/tr[1]/td[3]')
+Out[7]: [<Selector xpath='//*[@id="top_movies_main"]/div/table/tr[1]/td[3]' data='<td>\n        <a href="/m/black_panther_2'>]
+
+In [8]: response.xpath('//*[@id="top_movies_main"]/div/table/tr[1]/td[3]/a')
+Out[8]: [<Selector xpath='//*[@id="top_movies_main"]/div/table/tr[1]/td[3]/a' data='<a href="/m/black_panther_2018" class="u'>]
+
+In [9]: response.xpath('//*[@id="top_movies_main"]/div/table/tr[1]/td[3]/a/@href')
+Out[9]: [<Selector xpath='//*[@id="top_movies_main"]/div/table/tr[1]/td[3]/a/@href' data='/m/black_panther_2018'>]
+
+In [10]: response.xpath('//*[@id="top_movies_main"]/div/table/tr[1]/td[3]/a/@href')[0].extract()
+Out[10]: '/m/black_panther_2018'
+
+In [11]: url = response.xpath('//*[@id="top_movies_main"]/div/table/tr[1]/td[3]/a/@href')[0].extract()
+
+In [12]: url
+Out[12]: '/m/black_panther_2018'
+
+In [13]: response.urljoin(url)
+Out[13]: 'https://www.rottentomatoes.com/m/black_panther_2018'
+
+In [14]: for tr in response.xpaht('//*[@id="top_movies_main"]/div/table/tr'):
+    ...:     href = tr.xpath('./td[3]/a/@href')
+    ...:     url = response.urljoin(href[0].extract())
+    ...:     print(url)
+    ...:
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-14-d39f95259cdf> in <module>()
+----> 1 for tr in response.xpaht('//*[@id="top_movies_main"]/div/table/tr'):
+      2     href = tr.xpath('./td[3]/a/@href')
+      3     url = response.urljoin(href[0].extract())
+      4     print(url)
+      5
+
+AttributeError: 'HtmlResponse' object has no attribute 'xpaht'
+
+In [15]: for tr in response.xpath('//*[@id="top_movies_main"]/div/table/tr'):
+    ...:     href = tr.xpath('./td[3]/a/@href')
+    ...:     url = response.urljoin(href[0].extract())
+    ...:     print(url)
+    ...:
+https://www.rottentomatoes.com/m/black_panther_2018
+https://www.rottentomatoes.com/m/mission_impossible_fallout
+https://www.rottentomatoes.com/m/paddington_2
+https://www.rottentomatoes.com/m/call_me_by_your_name
+https://www.rottentomatoes.com/m/a_quiet_place_2018
+https://www.rottentomatoes.com/m/leave_no_trace
+https://www.rottentomatoes.com/m/blackkklansman
+https://www.rottentomatoes.com/m/incredibles_2
+https://www.rottentomatoes.com/m/wont_you_be_my_neighbor
+https://www.rottentomatoes.com/m/eighth_grade
+https://www.rottentomatoes.com/m/the_death_of_stalin
+https://www.rottentomatoes.com/m/i_tonya
+https://www.rottentomatoes.com/m/phantom_thread
+https://www.rottentomatoes.com/m/the_post
+https://www.rottentomatoes.com/m/mcqueen
+https://www.rottentomatoes.com/m/ant_man_and_the_wasp
+https://www.rottentomatoes.com/m/a_fantastic_woman
+https://www.rottentomatoes.com/m/isle_of_dogs_2018
+https://www.rottentomatoes.com/m/summer_1993
+https://www.rottentomatoes.com/m/hereditary
+https://www.rottentomatoes.com/m/the_rider
+https://www.rottentomatoes.com/m/sorry_to_bother_you_2018
+https://www.rottentomatoes.com/m/first_reformed
+https://www.rottentomatoes.com/m/oh_lucy_2018
+https://www.rottentomatoes.com/m/foxtrot_2018
+https://www.rottentomatoes.com/m/the_endless
+https://www.rottentomatoes.com/m/avengers_infinity_war
+https://www.rottentomatoes.com/m/three_identical_strangers
+https://www.rottentomatoes.com/m/love_simon
+https://www.rottentomatoes.com/m/loveless_2018
+https://www.rottentomatoes.com/m/crazy_rich_asians
+https://www.rottentomatoes.com/m/the_tale
+https://www.rottentomatoes.com/m/in_between_2018
+https://www.rottentomatoes.com/m/annihilation
+https://www.rottentomatoes.com/m/rbg
+https://www.rottentomatoes.com/m/blindspotting
+https://www.rottentomatoes.com/m/deadpool_2
+https://www.rottentomatoes.com/m/beast
+https://www.rottentomatoes.com/m/zama
+https://www.rottentomatoes.com/m/lean_on_pete
+https://www.rottentomatoes.com/m/sweet_country_2018
+https://www.rottentomatoes.com/m/custody_2018
+https://www.rottentomatoes.com/m/filmworker
+https://www.rottentomatoes.com/m/tully_2018
+https://www.rottentomatoes.com/m/western_2018
+https://www.rottentomatoes.com/m/you_were_never_really_here
+https://www.rottentomatoes.com/m/journeys_end_2018
+https://www.rottentomatoes.com/m/24_frames
+https://www.rottentomatoes.com/m/revenge_2018
+https://www.rottentomatoes.com/m/nico_1988
+https://www.rottentomatoes.com/m/the_wife_2018
+https://www.rottentomatoes.com/m/a_prayer_before_dawn_2017
+https://www.rottentomatoes.com/m/hearts_beat_loud
+https://www.rottentomatoes.com/m/teen_titans_go_to_the_movies
+https://www.rottentomatoes.com/m/mollys_game
+https://www.rottentomatoes.com/m/the_guardians_2018
+https://www.rottentomatoes.com/m/whitney_2018
+https://www.rottentomatoes.com/m/on_body_and_soul
+https://www.rottentomatoes.com/m/thoroughbreds_2018
+https://www.rottentomatoes.com/m/game_night_2018
+https://www.rottentomatoes.com/m/the_insult
+https://www.rottentomatoes.com/m/scotty_and_the_secret_history_of_hollywood
+https://www.rottentomatoes.com/m/blockers
+https://www.rottentomatoes.com/m/madelines_madeline
+https://www.rottentomatoes.com/m/american_animals
+https://www.rottentomatoes.com/m/disobedience_2017
+https://www.rottentomatoes.com/m/pope_francis_a_man_of_his_word
+https://www.rottentomatoes.com/m/set_it_up
+https://www.rottentomatoes.com/m/claires_camera
+https://www.rottentomatoes.com/m/ready_player_one
+https://www.rottentomatoes.com/m/mamma_mia_here_we_go_again
+https://www.rottentomatoes.com/m/solo_a_star_wars_story
+https://www.rottentomatoes.com/m/upgrade_2018
+https://www.rottentomatoes.com/m/let_the_sunshine_in
+https://www.rottentomatoes.com/m/skate_kitchen
+https://www.rottentomatoes.com/m/a_ciambra
+https://www.rottentomatoes.com/m/boom_for_real_the_late_teenage_years_of_jean_michel_basquiat
+https://www.rottentomatoes.com/m/borg_vs_mcenroe
+https://www.rottentomatoes.com/m/unsane
+https://www.rottentomatoes.com/m/early_man
+https://www.rottentomatoes.com/m/mary_and_the_witchs_flower
+https://www.rottentomatoes.com/m/grace_jones_bloodlight_and_bami
+https://www.rottentomatoes.com/m/the_final_year
+https://www.rottentomatoes.com/m/alpha_2018
+https://www.rottentomatoes.com/m/beirut
+https://www.rottentomatoes.com/m/mountain_2018
+https://www.rottentomatoes.com/m/puzzle_2018
+https://www.rottentomatoes.com/m/the_party_2018
+https://www.rottentomatoes.com/m/the_miseducation_of_cameron_post_2018
+https://www.rottentomatoes.com/m/cargo_2018
+https://www.rottentomatoes.com/m/ghost_stories_2018
+https://www.rottentomatoes.com/m/chappaquiddick
+https://www.rottentomatoes.com/m/the_third_murder
+https://www.rottentomatoes.com/m/lover_for_a_day
+https://www.rottentomatoes.com/m/have_a_nice_day
+https://www.rottentomatoes.com/m/under_the_tree
+https://www.rottentomatoes.com/m/the_guernsey_literary_and_potato_peel_pie_society
+https://www.rottentomatoes.com/m/where_is_kyra
+https://www.rottentomatoes.com/m/hostiles
+https://www.rottentomatoes.com/m/i_kill_giants
+
+In [16]:
