@@ -1,0 +1,33 @@
+import scrapy
+from selenium import webdriver
+import time
+from scrapy.selector import Selector
+
+from tel_crawler.items import TCItem
+
+class TCSpider(scrapy.Spider):
+    name = "TelephoneNo"
+    allowed_domains = ["114.co.kr"]
+    start_urls = [
+        # "https://www.114.co.kr/search/list.do?menuKey=116&searchWord=%EA%B4%91%ED%99%94%EB%AC%B8%EC%9A%B0%EC%B2%B4%EA%B5%AD#none"
+        "https://www.114.co.kr/search/list.do?menuKey=116&searchWord=광화문우체국#none"
+    ]
+
+    def __init__(self):
+        scrapy.Spider.__init__(self)
+        self.browser = webdriver.Chrome(r"c:\util\chromedriver.exe")
+
+    def parse(self, response):
+        self.browser.get(response.url)
+        time.sleep(5)
+
+        html = self.browser.find_element_by_xpath('//*').get_attribute('outerHTML')
+        selector = Selector(text=html)
+        rows = selector.xpath('//*[@id="normalUl"]')
+
+        for row in rows:
+            item = TCItem() 
+            item["officeName"] = row.xpath('./li[2]/dl/dt/a/text()')[0].extract()
+            item["officeAddr"] = row.xpath('./li[2]/dl/dd/p/span/text()')[0].extract()
+            item["telephoneNo"] = row.xpath('./li[2]/dl/dd/a[3]/text()')[0].extract()
+            yield item
