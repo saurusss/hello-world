@@ -1,4 +1,7 @@
+# real command >> scrapy crawl TelephoneNo -o pl.csv
+
 import pandas as pd # post offices name load
+
 
 import scrapy
 from selenium import webdriver
