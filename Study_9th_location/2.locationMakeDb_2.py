@@ -1,10 +1,10 @@
 import sqlite3
 import pandas as pd
 import numpy as numpy
-loc = pd.read_excel(r'C:\Users\Administrator\Documents\Github\hello-world\Study_8th_location\loc_180824.xlsx')
+loc = pd.read_excel(r'C:\temp\loc_180824.xlsx')
 print(loc)
 
-con = sqlite3.connect(r'C:\Users\Administrator\Documents\Github\hello-world\Study_8th_location\loc_post.db')
+con = sqlite3.connect(r'C:\temp\loc_post.db')
 cursor = con.cursor()
 loc.to_sql('position', con)
 
