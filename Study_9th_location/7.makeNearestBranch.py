@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import sqlite3
 import math
-import datetime
  
 
 print("*"*10, "start of job", "*"*10)
@@ -10,7 +9,7 @@ conn = sqlite3.connect(r'C:\Temp\loc_post.db')
 df = pd.read_sql_query("select * from position where nearestBranch is null", conn)
 cnt = len(df)
 
-while cnt > 1:
+while cnt > 0:
 
         conn = sqlite3.connect(r'C:\Temp\loc_post.db')
         cursor = conn.cursor()
@@ -23,8 +22,6 @@ while cnt > 1:
 
         del df['index']
         df = df.set_index('officeName')
-        # df = df.sort_index(ascending=False)
-        df = df.sort_values(by='address',ascending=False)
 
         df_c = pd.DataFrame(columns=['officeName','dist'])
         df_c = df_c.set_index('officeName')
@@ -45,7 +42,7 @@ while cnt > 1:
         # print(select_indices[0])
         # print(select_indices)
         minDistOffice = df_c.index[select_indices[0]]
-        print(cnt, '관내국 : ', wofficeName, '\t최기관내국 : ', minDistOffice[0], '\t거리 : ', format(round((minDist[0]/1000),2),','),'Km', "\t==", datetime.datetime.now().isoformat() )
+        print(cnt, '관내국 : ', wofficeName, '\t\t최기관내국 : ', minDistOffice[0], '\t\t거리 : ', format(round((minDist[0]/1000),2),','),'Km')
         # print(wofficeName)
         # print(minDist[0])
         # print(minDistOffice[0])

@@ -91,5 +91,6 @@ print(df)
 
 # using pop function
 print ("Deleting another column using POP function:")
+
 df.pop('two')
 print(df)

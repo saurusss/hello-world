@@ -33,7 +33,7 @@ print(df.describe())
 
 print(df.T)
 print(df.sort_index(axis=1, ascending=False))
-print(df.sort_values(by='B'))
+print(df.sort_values(by='B'))sort_values(by='B'))
 
 # Selection
 print(df['A'])
@@ -47,5 +47,7 @@ print(df.loc['20130102'])
 print(df.loc['2013-01-02'])
 
 print(df.mean())
+
+
 
 
