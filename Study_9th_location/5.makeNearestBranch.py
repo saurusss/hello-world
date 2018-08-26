@@ -45,6 +45,7 @@ while cnt > 1:
         # print(select_indices[0])
         # print(select_indices)
         minDistOffice = df_c.index[select_indices[0]]
+        # minDistOffice = --> .name을 이용하여 변경
         print(cnt, '관내국 : ', wofficeName, '\t최기관내국 : ', minDistOffice[0], '\t거리 : ', format(round((minDist[0]/1000),2),','),'Km', "\t==", datetime.datetime.now().isoformat() )
         # print(wofficeName)
         # print(minDist[0])
@@ -53,7 +54,7 @@ while cnt > 1:
         conn = sqlite3.connect(r'C:\Temp\loc_post.db')
         cursor = conn.cursor()
         sql_update = "UPDATE position SET ? = ?, ? = ? where officeName = ?"
-        cursor.execute(sql_update, str('nearestBranch'),  (minDistOffice[0], str('nrstBrDist'), int(minDist[0]), wofficeName))
+        cursor.execute(sql_update, (str('nearestBranch'),  minDistOffice[0], str('nrstBrDist'), int(minDist[0]), wofficeName ) )
         # sql_update = "UPDATE position SET nearestBranch = ?, nrstBrDist = ? where officeName = ?"
         # cursor.execute(sql_update,(minDistOffice[0], int(minDist[0]), wofficeName))
         conn.commit()
