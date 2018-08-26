@@ -6,19 +6,21 @@ import math
 import datetime
  
 
-print("*"*10, "start of job", "*"*10)
+print("*"*10, "start of job", "*"*11)
 conn = sqlite3.connect(r'C:\Temp\loc_post.db')
-df = pd.read_sql_query("select * from position", conn)
+df = pd.read_sql_query("select officeName, latitude, longitude from position", conn)
 df_working = pd.read_sql_query("select officeName from position where (nbr1 is null) or (nBr2 is null)or (nBr3 is null)",conn)
 conn.close()
 
 
 # 입력 정보 정리
-del df['index']
+# del df['index']
 df = df.set_index('officeName')
 # del df_working['index']
 df_working = df_working.set_index('officeName')
-print('*** 작업대상 Office : ', len(df_working), '개소')
+working_office = len(df_working)
+print('*** 작업대상 Office : ', working_office, '개소 ***')
+
 #단위당 거리(미터)
 baseLat = 110979.309    # 검증 필요
 baseLon = 88907.949     # 검증 필요
@@ -57,11 +59,11 @@ for i in df_working.index:
         sql_update = "UPDATE position SET  nBr1 = ?, nDist1 = ?, nBr2 = ?, nDist2 = ?, nBr3 = ?, nDist3 = ? \
                         where officeName = ?"
         cursor.execute(sql_update, (selectedBr[0], selectedDist[0], selectedBr[1], selectedDist[1], selectedBr[2], selectedDist[2], wofficeName) )
-        print( cnt,'\t*** 관내국:', wofficeName, 
-                        '\t1st', selectedBr[0], format(round((selectedDist[0]/1000),2),','),'Km',
-                        '\t2nd', selectedBr[1], format(round((selectedDist[1]/1000),2),','),'Km', 
-                        '\t3rd', selectedBr[2], format(round((selectedDist[2]/1000),2),','),'Km'  
-                        '\t===', datetime.datetime.now().isoformat() ) 
+        print('('+format(cnt)+'/'+format(working_office)+')', '\t* 관내국:', wofficeName, 
+                        '\t* 1st', selectedBr[0], format(round((selectedDist[0]/1000),2),','),'Km',
+                        '\t* 2nd', selectedBr[1], format(round((selectedDist[1]/1000),2),','),'Km', 
+                        '\t* 3rd', selectedBr[2], format(round((selectedDist[2]/1000),2),','),'Km'  
+                        '\t==', datetime.datetime.now().isoformat() ) 
         conn.commit()   
                 
 conn.close()
