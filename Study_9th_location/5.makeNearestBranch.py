@@ -52,8 +52,10 @@ while cnt > 1:
 
         conn = sqlite3.connect(r'C:\Temp\loc_post.db')
         cursor = conn.cursor()
-        sql_update = "UPDATE position SET nearestBranch = ?, nrstBrDist = ? where officeName = ?"
-        cursor.execute(sql_update,(minDistOffice[0], int(minDist[0]), wofficeName))
+        sql_update = "UPDATE position SET ? = ?, ? = ? where officeName = ?"
+        cursor.execute(sql_update, str('nearestBranch'),  (minDistOffice[0], str('nrstBrDist'), int(minDist[0]), wofficeName))
+        # sql_update = "UPDATE position SET nearestBranch = ?, nrstBrDist = ? where officeName = ?"
+        # cursor.execute(sql_update,(minDistOffice[0], int(minDist[0]), wofficeName))
         conn.commit()
         # update 결과 조회
         # sql = "select * from position where officeName = '이천모가(취)' or officeName = '가남우체국'"
