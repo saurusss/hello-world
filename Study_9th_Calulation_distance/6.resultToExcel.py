@@ -7,5 +7,5 @@ print("*"*10, "start of job", "*"*10)
 conn = sqlite3.connect(r'C:\Temp\loc_post.db')
 df = pd.read_sql_query("select * from position ", conn)
 
-df.to_csv('c:\\TEMP\\nrstBR_강원충청_180906.csv', mode='w')
+df.to_csv('c:\\TEMP\\nrstBR_강원충청_180907.csv', mode='w')
 print("*"*10, " end of job ", "*"*10)
