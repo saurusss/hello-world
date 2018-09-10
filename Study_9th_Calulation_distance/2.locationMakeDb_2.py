@@ -1,7 +1,8 @@
 import sqlite3
 import pandas as pd
 import numpy as numpy
-loc = pd.read_excel(r'C:\temp\loc_180826.xlsx')
+loc = pd.read_excel(r'C:\temp\loc_180910.xlsx')
+# loc = pd.read_excel(r'C:\temp\loc_180826.xlsx')
 # loc = pd.read_excel(r'C:\temp\loc_180825_2.xlsx')
 # loc = pd.read_excel(r'C:\temp\loc_180825_1.xlsx')
 # loc = pd.read_excel(r'C:\temp\loc_180825.xlsx')
