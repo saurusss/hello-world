@@ -1,8 +1,8 @@
- #!/usr/bin/env python 
- # http://www.platoscave.net/blog/2009/oct/5/calculate-distance-latitude-longitude-python/ 
- # Haversine formula example in Python # Author: Wayne Dyck 
- import math 
- def distance(origin, destination): 
+#!/usr/bin/env python 
+# http://www.platoscave.net/blog/2009/oct/5/calculate-distance-latitude-longitude-python/ 
+# Haversine formula example in Python # Author: Wayne Dyck 
+import math 
+def distance(origin, destination): 
     lat1, lon1 = origin 
     lat2, lon2 = destination 
     radius = 6371 # Km
