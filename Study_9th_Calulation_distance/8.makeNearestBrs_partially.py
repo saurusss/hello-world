@@ -9,7 +9,7 @@ import datetime
 print("*"*10, "start of job", "*"*11)
 conn = sqlite3.connect(r'C:\Temp\loc_post.db')
 df = pd.read_sql_query("select officeName, latitude, longitude from position", conn)
-df_working = pd.read_sql_query("select officeName from position where (nbr1 is null) or (nBr2 is null)or (nBr3 is null)",conn)
+df_working = pd.read_sql_query("select officeName from position where (nbr1 is null) or (nBr2 is null)or (nBr3 is null) ", conn)
 conn.close()
 
 
