@@ -9,10 +9,13 @@ import sqlite3
 print("*"*10, "start of job", "*"*11)
 conn = sqlite3.connect(r'C:\Temp\loc_post.db')
 
+
+zone ="all"
+zoneName = "ALL"
 # zone = "서울지방우정청\'  or Department = \'경인지방우정청"
 # zoneName = "Seoul + Kyeongki-Incheon"
-zone = "서울지방우정청"
-zoneName = "Seoul"
+# zone = "서울지방우정청"
+# zoneName = "Seoul"
 # zone = "경인지방우정청"
 # zoneName = "Kyeongki-Incheon"
 # zone = "충청지방우정청"
@@ -22,7 +25,10 @@ zoneName = "Seoul"
 # zone = "우정공무원교육원"
 # zoneName = "Education"
 
-sqlQuery  = "select officeName, latitude, longitude from position \
+if zone == "all":
+    sqlQuery  = "select officeName, latitude, longitude from position"
+else:
+    sqlQuery  = "select officeName, latitude, longitude from position \
             where Department = \'"+ zone  + "\'"      
      
             
