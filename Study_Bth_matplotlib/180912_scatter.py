@@ -5,9 +5,15 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import sqlite3
+import os
+
 
 print("*"*10, "start of job", "*"*11)
-conn = sqlite3.connect(r'C:\Temp\loc_post.db')
+
+
+dbpath = os.getenv('homedrive') + os.getenv('homepath') + r"\OneDrive\Documents\KOC\180807_우체국\작업관리정보\주소"
+
+conn = sqlite3.connect(dbpath + r'\loc_post.db')
 
 
 zone ="all"
