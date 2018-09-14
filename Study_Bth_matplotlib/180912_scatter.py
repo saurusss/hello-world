@@ -11,13 +11,14 @@ import os
 print("*"*10, "start of job", "*"*11)
 
 
-dbpath = os.getenv('homedrive') + os.getenv('homepath') + r"\OneDrive\Documents\KOC\180807_우체국\작업관리정보\주소"
+# dbpath = os.getenv('homedrive') + os.getenv('homepath') + r"\OneDrive\Documents\KOC\180807_우체국\작업관리정보\주소"
+dbpath = os.getenv('homedrive') + os.getenv('homepath') + r"\Documents\Github\hello-world\Study_9th_Calulation_distance"
 
 conn = sqlite3.connect(dbpath + r'\loc_post.db')
 
 
-zone ="all"
-zoneName = "ALL"
+# zone ="all"
+# zoneName = "ALL"
 # zone = "서울지방우정청\'  or Department = \'경인지방우정청"
 # zoneName = "Seoul + Kyeongki-Incheon"
 # zone = "서울지방우정청"
@@ -26,8 +27,8 @@ zoneName = "ALL"
 # zoneName = "Kyeongki-Incheon"
 # zone = "충청지방우정청"
 # zoneName = "Chungcheong"
-# zone = "강원지방우정청"
-# zoneName = "Kangweon"
+zone = "강원지방우정청"
+zoneName = "Kangweon"
 # zone = "우정공무원교육원"
 # zoneName = "Education"
 
@@ -45,7 +46,7 @@ df = df.set_index('officeName')
 
 
 plt.title(zoneName)
-plt.scatter(df.longitude, df.latitude,  marker ='.', c='r')
+plt.scatter(df.longitude, df.latitude,  marker ='.', c='b')
 plt.ylabel('Latitude')
 plt.xlabel('Longitude')
 #plt.legend()
