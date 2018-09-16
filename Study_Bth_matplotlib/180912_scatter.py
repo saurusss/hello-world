@@ -17,8 +17,8 @@ dbpath = os.getenv('homedrive') + os.getenv('homepath') + r"\Documents\Github\he
 conn = sqlite3.connect(dbpath + r'\loc_post.db')
 
 
-# zone ="all"
-# zoneName = "ALL"
+zone ="all"
+zoneName = "ALL"
 # zone = "서울지방우정청\'  or Department = \'경인지방우정청"
 # zoneName = "Seoul + Kyeongki-Incheon"
 # zone = "서울지방우정청"
@@ -27,12 +27,12 @@ conn = sqlite3.connect(dbpath + r'\loc_post.db')
 # zoneName = "Kyeongki-Incheon"
 # zone = "충청지방우정청"
 # zoneName = "Chungcheong"
-zone = "강원지방우정청"
-zoneName = "Kangweon"
+# zone = "강원지방우정청"
+# zoneName = "Kangweon"
 # zone = "우정공무원교육원"
 # zoneName = "Education"
 
-if zone == "all":
+if zone == "all": 
     sqlQuery  = "select officeName, latitude, longitude from position"
 else:
     sqlQuery  = "select officeName, latitude, longitude from position \
