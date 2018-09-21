@@ -54,8 +54,8 @@ for i in df_working.index:
                 selectedBr.append(k)
                 selectedDist.append(int(wdf.loc[k]['dist']))
 
-
-        conn = sqlite3.connect(r'C:\Temp\loc_post.db')
+        conn = sqlite3.connect(dbPath + r'\loc_post.db')
+        # conn = sqlite3.connect(r'C:\Temp\loc_post.db')
         cursor = conn.cursor()
         # sql_updBr = 'nBr' + str(cntt)
         # sql_updDist = 'nDist' + str(cntt)
