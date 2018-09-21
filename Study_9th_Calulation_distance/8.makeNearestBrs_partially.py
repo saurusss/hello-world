@@ -4,10 +4,14 @@ import numpy as np
 import sqlite3
 import math
 import datetime
+import os
  
 
 print("*"*10, "start of job", "*"*11)
-conn = sqlite3.connect(r'C:\Temp\loc_post.db')
+
+dbPath = os.getenv('homedrive') + os.getenv('homepath') + r"\OneDrive\Documents\KOC\180807_우체국\작업관리정보\주소"
+conn = sqlite3.connect(dbPath + r'\loc_post.db')
+
 df = pd.read_sql_query("select officeName, latitude, longitude from position", conn)
 df_working = pd.read_sql_query("select officeName from position where (nbr1 is null) or (nBr2 is null)or (nBr3 is null) ", conn)
 conn.close()
