@@ -6,7 +6,7 @@ import os
 
 # dbPath = os.getenv('homedrive') + os.getenv('homepath') + r"\OneDrive\Documents\KOC\180807_우체국\작업관리정보\주소"
 dbPath = os.getenv('homedrive') + os.getenv('homepath') + r"\Documents\Github\hello-world\Study_9th_Calulation_distance"
-conn = sqlite3.connect(dbPath + r'\loc_post.db')
+# conn = sqlite3.connect(dbPath + r'\loc_post.db')
 
 # excelPath = os.getenv('homedrive') + os.getenv('homepath') + r"\OneDrive\Documents\KOC\180807_우체국\작업관리정보\주소"
 excelPath = os.getenv('homedrive') + os.getenv('homepath') + r"\Documents\Github\hello-world\Study_9th_Calulation_distance"
