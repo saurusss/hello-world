@@ -7,11 +7,9 @@ class Example(QWidget):
 
    def __init__(self):
         super(Example, self).__init__()
-
         self.initUI()
 		
    def initUI(self):
-	
         cal = QCalendarWidget(self)
         cal.setGridVisible(True)
         cal.move(20, 20)
